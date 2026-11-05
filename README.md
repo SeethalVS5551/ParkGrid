@@ -43,3 +43,19 @@ The main objective of ParkGrid is to simplify parking reservation and management
 
 ## Project Type
 MCA Group Project
+## Project Screenshots
+
+### Home Page
+![Home Page](screenshots/home.png)
+
+### User Dashboard
+![User Dashboard](screenshots/userdashboard.png)
+
+### Login Page
+![Booking History](screenshots/booking-history.png)
+
+### QR Code
+![Scan OR Code](screenshots/scan-QR.png)
+
+### Manage Slots
+![Manage Slots](screenshots/manageslots.png)
