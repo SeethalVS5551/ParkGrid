@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkGrid | Booking Details</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f7f9;
+            color: #17212b;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 245px;
+            height: 100vh;
+            background: #102a43;
+            color: white;
+            padding: 28px 18px;
+        }
+
+        .brand {
+            padding: 0 14px 35px;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .brand h1 {
+            font-size: 27px;
+        }
+
+        .brand span {
+            color: #2ec4b6;
+        }
+
+        .brand p {
+            margin-top: 6px;
+            color: #9fb3c8;
+            font-size: 12px;
+        }
+
+        .menu {
+            margin-top: 30px;
+        }
+
+        .menu-title {
+            padding: 0 14px;
+            margin-bottom: 12px;
+            color: #829ab1;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 14px;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            color: #d9e2ec;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .menu a:hover {
+            background: #1c405f;
+            color: white;
+        }
+
+        .menu a.active {
+            background: #167d8d;
+            color: white;
+        }
+
+        .menu-icon {
+            width: 22px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+        .logout {
+            border-top: 1px solid rgba(255,255,255,0.12);
+            padding-top: 18px;
+        }
+
+        .logout a {
+            color: #ffb4b4 !important;
+        }
+
+        .main {
+            margin-left: 245px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 76px;
+            background: white;
+            border-bottom: 1px solid #e1e8ed;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+        }
+
+        .page-title h2 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .page-title p {
+            color: #7b8794;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .customer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .customer-info {
+            text-align: right;
+        }
+
+        .customer-info strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .customer-info span {
+            color: #7b8794;
+            font-size: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #d8f3ef;
+            color: #087f8c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .content {
+            padding: 35px 40px;
+            max-width: 1050px;
+        }
+
+        .heading {
+            margin-bottom: 25px;
+        }
+
+        .heading h1 {
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+        .heading p {
+            color: #7b8794;
+            font-size: 14px;
+        }
+
+        .details-card {
+            background: white;
+            border: 1px solid #e1e8ed;
+            border-radius: 14px;
+            padding: 30px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .card-header h3 {
+            font-size: 19px;
+        }
+
+        .booking-id {
+            color: #087f8c;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .details {
+            border: 1px solid #e1e8ed;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 17px 20px;
+            border-bottom: 1px solid #e1e8ed;
+            font-size: 13px;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row span:first-child {
+            color: #7b8794;
+        }
+
+        .detail-row span:last-child {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .status {
+            color: #147d64 !important;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .primary-btn {
+            background: #102a43;
+            color: white;
+        }
+
+        .primary-btn:hover {
+            background: #167d8d;
+        }
+
+        .secondary-btn {
+            background: #edf7f6;
+            color: #087f8c;
+        }
+
+        .secondary-btn:hover {
+            background: #d8f3ef;
+        }
+
+        .back {
+            margin-top: 30px;
+        }
+
+        .back a {
+            color: #087f8c;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .footer {
+            padding: 30px 40px;
+            color: #829ab1;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        @media (max-width: 750px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .sidebar-bottom {
+                position: static;
+                margin-top: 20px;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .details-card {
+                padding: 20px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .detail-row span:last-child {
+                text-align: left;
+            }
+
+            .card-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <h1>Park<span>Grid</span></h1>
+            <p>Customer Parking Portal</p>
+        </div>
+
+        <div class="menu">
+
+            <div class="menu-title">Main Menu</div>
+
+            <a href="/user/dashboard/">
+                <span class="menu-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="/parking-list/" class="active">
+                <span class="menu-icon">⌖</span>
+                Find Parking
+            </a>
+
+        
+
+            <a href="/booking-history/">
+                <span class="menu-icon">◷</span>
+                Booking History
+            </a>
+
+            <div class="menu-title" style="margin-top:25px;">
+                Support
+            </div>
+
+            <a href="/complaints/">
+                <span class="menu-icon">✉</span>
+                Complaints
+            </a>
+
+            <a href="/complaint-status/">
+                <span class="menu-icon">✓</span>
+                Complaint Status
+            </a>
+
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="logout">
+                <a href="/logout/">
+                    <span class="menu-icon">↪</span>
+                    Logout
+                </a>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <div class="main">
+
+        <header class="topbar">
+
+            <div class="page-title">
+                <h2>Booking Details</h2>
+                <p>View your parking reservation</p>
+            </div>
+
+            <div class="customer">
+                <div class="customer-info">
+                    <strong>Customer</strong>
+                    <span>ParkGrid User</span>
+                </div>
+
+                <div class="avatar">
+                    U
+                </div>
+            </div>
+
+        </header>
+
+
+        <main class="content">
+
+            <div class="heading">
+                <h1>Booking Details</h1>
+                <p>Review the information related to your parking reservation.</p>
+            </div>
+
+
+            <div class="details-card">
+
+                <div class="card-header">
+
+                    <h3>Reservation Information</h3>
+
+                    <span class="booking-id">
+    Booking #{{ booking.id }}
+</span>
+
+                </div>
+
+
+                <div class="details">
+
+    <div class="detail-row">
+        <span>Parking Facility</span>
+        <span>{{ booking.location.name }}</span>
+    </div>
+
+    <div class="detail-row">
+        <span>Location</span>
+        <span>{{ booking.location.city }}</span>
+    </div>
+
+    <div class="detail-row">
+        <span>Parking Slot</span>
+        <span>{{ booking.slot.slot_number }}</span>
+    </div>
+
+    <div class="detail-row">
+        <span>Vehicle Type</span>
+        <span>{{ booking.get_vehicle_type_display }}</span>
+    </div>
+
+    <div class="detail-row">
+        <span>Vehicle Number</span>
+        <span>{{ booking.vehicle_number }}</span>
+    </div>
+
+    <div class="detail-row">
+        <span>Booking Date</span>
+        <span>{{ booking.booking_date|date:"d F Y" }}</span>
+    </div>
+
+    <div class="detail-row">
+        <span>Expected Arrival</span>
+        <span>{{ booking.expected_arrival|date:"d F Y, h:i A" }}</span>
+    </div>
+
+    <div class="detail-row">
+        <span>Reservation Expiry</span>
+        <span>{{ booking.reservation_expiry|date:"d F Y, h:i A" }}</span>
+    </div>
+
+    <div class="detail-row">
+        <span>Status</span>
+        <span class="status">
+            {{ booking.get_status_display }}
+        </span>
+    </div>
+
+</div>
+
+
+                <div class="actions">
+
+                <div class="booking-actions">
+    <a href="{% url 'qr_code' booking.id %}" class="btn primary-btn">
+        View QR Code →
+    </a>
+</div>
+
+                    <a href="{% url 'booking_history' %}" class="btn secondary-btn">
+    Booking History
+</a>
+
+                </div>
+
+            </div>
+
+
+            <div class="back">
+    <a href="{% url 'booking_history' %}">
+        ← Back to Booking History
+    </a>
+</div>
+
+        </main>
+
+
+        <footer class="footer">
+            © 2026 ParkGrid · Customer Parking Portal
+        </footer>
+
+    </div>
+
+</body>
+</html>

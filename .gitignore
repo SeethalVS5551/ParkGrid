@@ -1,0 +1,25 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+db.sqlite3
+.env
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+# Environment secrets
+.env
+.env.*
+
+# Local backups and debug files
+*.bak
+*.debug-backup
+*.patch
+nearby_views_diff.txt
+parkgrid_backup.sql
+payment_backup.json
+
+# Local complaint screenshots/uploads
+media/complaints/
+*.backup.html
